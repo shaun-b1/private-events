@@ -1,0 +1,9 @@
+<%= form_with model: @event do |form| %>
+  <%= label_tag(:name, "Event Name:") %><br>
+  <%= form.text_field :name %><br>
+  <%= label_tag(:location, "Event Location:") %><br>
+  <%= form.text_field :location %><br>
+  <%= label_tag(:event_time, "Time and Date of Event:") %><br>
+  <%= form.datetime_local_field :event_time %><br>
+  <%= form.submit "Create Event" %>
+<% end %>

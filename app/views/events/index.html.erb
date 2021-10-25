@@ -1,1 +1,33 @@
 <h1>Welcome to Eventshub!</h1>
+
+<% if user_signed_in? %>
+  <%= link_to "My Profile", user_path(current_user[:id]) %>
+<% end %>
+
+<h3>Upcoming events</h3>
+<% if @events.empty? %>
+  <%= "There are no upcoming events! Why don't you create some?" %>
+<% else %>
+  <table>
+    <tr>
+      <th>Event Name</th>
+      <th>Host</th>
+      <th></th>
+    </tr>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.name %></td>
+        <td><%= event.creator.name %></td>
+        <td><%= link_to "Show Event Details", event_path(event) %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<% if user_signed_in? %>
+  <%= link_to "New Event", new_event_path %>
+  <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to "Sign Up", new_user_registration_path %>
+  <%= link_to "Sign In", new_user_session_path %>
+<% end %>

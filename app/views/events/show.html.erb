@@ -1,0 +1,22 @@
+<h1><%= @event.name %> Details</h1>
+
+<table>
+  <tr>
+    <th>Event Name</th>
+    <th>Location</th>
+    <th>Time and Date</th>
+    <th>Host</th>
+    <th></th>
+  </tr>
+    <tr>
+      <td><%= @event.name %></td>
+      <td><%= @event.location %></td>
+      <td><%= @event.event_time %></td>
+      <td><%= User.find_by(id: @event.creator_id).name %></td>
+    </tr>
+</table>
+
+<% if user_signed_in? %>
+  <%= link_to "My Profile", user_path(current_user[:id]) %>
+<% end %>
+<%= link_to "Homepage", root_path %>
