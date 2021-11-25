@@ -16,6 +16,25 @@
         <%= msg %>
       </div>
     <% end %>
+
+    <nav>
+      <div>
+        <%= link_to root_path do %>
+          <h1 style="display: inline">Eventshub</h1>
+        <% end %>
+        <div style="float: right">
+          <p style="display: inline"><%= link_to 'New Event', new_event_path %></p>
+          <% if user_signed_in? %>
+            <p style="display: inline"><%= link_to current_user.name, user_path(current_user[:id]) %></p>
+            <p style="display: inline"><%= link_to "Edit Account", edit_user_registration_path %></p>
+            <p style="display: inline"><%= link_to "Logout", destroy_user_session_path, method: :delete %></p>
+          <% else %>
+            <p style="display: inline"><%= link_to "Sign in", new_user_session_path %></p>
+            <p style="display: inline"><%= link_to "Sign up", new_user_registration_path %></p>
+          <% end %>
+        </div>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>

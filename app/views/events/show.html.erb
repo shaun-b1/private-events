@@ -12,11 +12,19 @@
       <td><%= @event.name %></td>
       <td><%= @event.location %></td>
       <td><%= @event.event_time %></td>
-      <td><%= User.find_by(id: @event.creator_id).name %></td>
+      <td><%= link_to User.find_by(id: @event.creator_id).name, user_path(User.find_by(id: @event.creator_id)) %></td>
     </tr>
 </table>
 
-<% if user_signed_in? %>
-  <%= link_to "My Profile", user_path(current_user[:id]) %>
+<p><%= link_to "Join Event", new_event_attending_path(id: @event.id) %></p>
+
+<h3>Users attending the event</h3>
+<% if @event.attendees.empty? %>
+  <%= "No one is going to this event!" %>
+<% else %>
+<ul>
+  <% @event.attendees.each do |attendee| %>
+  <li><%= link_to attendee.name, user_path(User.find_by(id: attendee)) %></li>
+  <% end %>
+</ul>
 <% end %>
-<%= link_to "Homepage", root_path %>
