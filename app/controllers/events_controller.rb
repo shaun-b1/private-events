@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @events = Event.includes(:creator).all
@@ -10,7 +11,7 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new
+    @event = current_user.created_events.build(event_params)
   end
 
   def create
@@ -50,6 +51,14 @@ class EventsController < ApplicationController
     else
       flash.now[:error] = "Whoops! Something has gone wrong!"
       redirect_to user_path(current_user[:id])
+    end
+  end
+
+  def correct_user
+    @event = current_user.created_events.find_by(id: params[:id])
+    if @event.nil?
+      flash[:error] = "You aren't authorised to do that!"
+      redirect_back(fallback_location: root_path)
     end
   end
 

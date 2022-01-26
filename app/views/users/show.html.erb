@@ -44,7 +44,7 @@
         <td><%= event.event_time %></td>
         <td><%= link_to "Show Event Details", event_path(event) %></td>
         <td><%= link_to "Edit Event", edit_event_path(event) %></td>
-        <td><%= link_to "Delete Event", event_path(event), method: :delete, data: {confirm: "Are you sure"} %></td>
+        <td><%= link_to "Leave Event", event_attending_path(id: @user.event_attendings.ids), method: :delete, data: {confirm: "Are you sure"} %></td>
       </tr>
     <% end %>
   </table>

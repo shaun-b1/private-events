@@ -17,6 +17,7 @@
 </table>
 
 <p><%= link_to "Join Event", new_event_attending_path(id: @event.id) %></p>
+<p><%= link_to "Leave Event", event_attending_path(id: @event.id), method: :delete, data: {confirm: "Are you sure"} %></p>
 
 <h3>Users attending the event</h3>
 <% if @event.attendees.empty? %>

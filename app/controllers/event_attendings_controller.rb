@@ -13,10 +13,10 @@ class EventAttendingsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @event = Event.find(params[:id])
     if @event.attendees.include?(current_user)
-      @event.attendees.delete(current_user)
+      @event.attendees.destroy(current_user)
       flash[:success] = "You're no longer attending this event"
       redirect_to @event
     else
